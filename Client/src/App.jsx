@@ -10,10 +10,6 @@ function App() {
   return (
     <AppContainer className="AppContainer">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.jsx</code> and save to reload.
-        </p>
         <a
           className="App-link"
           href="https://reactjs.org"
@@ -23,7 +19,7 @@ function App() {
           Learn React
         </a>
       </header>
-    </div>
+    </AppContainer>
   );
 }
 
