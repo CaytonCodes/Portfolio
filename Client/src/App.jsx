@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import Projects from './components/Projects/Projects';
 
 const AppContainer = styled.div`
   width: 100%;
@@ -9,16 +10,9 @@ const AppContainer = styled.div`
 function App() {
   return (
     <AppContainer className="AppContainer">
-      <header className="App-header">
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1> Open Banner </h1>
+      <h1> About </h1>
+      <Projects />
     </AppContainer>
   );
 }
