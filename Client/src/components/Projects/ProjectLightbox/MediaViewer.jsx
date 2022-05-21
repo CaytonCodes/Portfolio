@@ -14,13 +14,18 @@ const Image = styled.img`
   object-fit: contain;
 `;
 
+const VideoTag = styled.video`
+  max-width: 80%;
+  max-height: 80%;
+  object-fit: contain;
+`;
+
 function MediaViewer({ mediaList }) {
   const [media] = useState(mediaList);
   const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
   const [currentMedia, setCurrentMedia] = useState(media[currentMediaIndex]);
 
   const mediaChange = (index, modifier = null) => {
-    console.log('MediaViewer.jsx: mediaChange()', index, modifier);
     let newIndex = index;
     if (modifier === 'next') {
       newIndex = currentMediaIndex + 1;
@@ -31,22 +36,35 @@ function MediaViewer({ mediaList }) {
     }
     setCurrentMediaIndex(newIndex);
     setCurrentMedia(media[newIndex]);
-    console.log('new index: ', newIndex, 'i: ', currentMediaIndex, 'currentMedia: ', media[newIndex]);
   };
 
   useEffect(() => {
     console.log('MediaViewer.jsx: useEffect()', currentMediaIndex, media.length, currentMedia);
-  }, []);
+  });
 
   return (
-    <MediaContainer className="MediaViewer" data-index={currentMediaIndex}>
-      {media.length > 0 && (
+    <MediaContainer className="MediaViewer">
+      {media.length > 1 && (
         <MediaNav mediaChange={mediaChange} direction="prev" />
       )}
       {currentMedia.type === 'image' && (
-        <Image src={currentMedia.link} alt="" data-index={currentMediaIndex} />
+        <Image src={currentMedia.link} alt="" />
       )}
-      {media.length > 0 && (
+      {currentMedia.type === 'video' && (
+        // eslint-disable-next-line jsx-a11y/media-has-caption
+        <VideoTag
+          src={currentMedia.link}
+          data-index={currentMediaIndex}
+          controls
+        >
+          Your browser does not support the video tag.
+        </VideoTag>
+      )}
+      {currentMedia.type === 'custom' && (
+        // eslint-disable-next-line react/no-danger
+        <div dangerouslySetInnerHTML={{ __html: currentMedia.link }} />
+      )}
+      {media.length > 1 && (
         <MediaNav mediaChange={mediaChange} direction="next" />
       )}
     </MediaContainer>

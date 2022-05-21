@@ -23,11 +23,24 @@ const PreviewImage = styled.img`
 `;
 
 function ProjectPreview({project, lightboxOpener}) {
+  // const [previewIndex, setPreviewIndex] = useState(0);
+  const [previewMedia, setPreviewMedia] = useState(project.media[0]);
+
   useEffect(() => {
-    console.log('ProjectPreview.jsx: useEffect()');
-  }, []);
+    if (project.hasOwnProperty('previewMedia') && project.previewMedia.hasOwnProperty('link')) {
+      setPreviewMedia(project.previewMedia);
+    } else {
+      for (let i = 0; i < project.media.length; i++) {
+        if (project.media[i].type === 'image') {
+          setPreviewMedia(project.media[i]);
+          break;
+        }
+      }
+    }
+  });
 
   const clicker = (e) => {
+    console.log('click on preview', e, project);
     e.preventDefault();
     lightboxOpener(project);
   };
@@ -35,11 +48,11 @@ function ProjectPreview({project, lightboxOpener}) {
   return (
     <PreviewWrapper className="ProjectPreviewWrapper" >
       <PreviewBody
-        className={`ProjectPreview ${project.id}`}
+        className={`ProjectPreview ProjectPreview_${project.id}`}
         onClick={clicker}
       >
-        {project.media[0]?.type === 'image' && (
-          <PreviewImage src={project.media[0].link} alt="" />
+        {previewMedia?.type === 'image' && (
+          <PreviewImage src={previewMedia.link} alt="" />
         )}
         <h5>{project.title}</h5>
       </PreviewBody>

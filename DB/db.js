@@ -1,3 +1,4 @@
+// const { dbBuild } = require('./dbHelpers');
 const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
@@ -15,6 +16,8 @@ const projectSchema = new Schema({
   projectDescription: String,
   projectImage: String,
 });
+
+// dbBuild();
 
 const Project = mongoose.model('Project', projectSchema);
 

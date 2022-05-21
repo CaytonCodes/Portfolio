@@ -1,0 +1,242 @@
+{
+  "subDocuments": {
+    "MediaSubdoc": {
+      "fields": [
+        {
+          "name": "type",
+          "label": "Media Type",
+          "type": "select",
+          "dbTag": "String",
+          "isRequired": true,
+          "options": [
+            {
+              "label": "Image",
+              "value": "image"
+            },
+            {
+              "label": "Video",
+              "value": "video"
+            }
+          ]
+        },
+        {
+          "name": "link",
+          "label": "Media Link",
+          "type": "text",
+          "dbTag": "String",
+          "isRequired": true,
+          "attributes": {
+            "placeholder": "Media URL"
+          }
+        }
+      ]
+    },
+    "AppSubdoc": {
+      "fields": [
+        {
+          "name": "name",
+          "label": "App Name",
+          "type": "text",
+          "dbTag": "String",
+          "isRequired": true,
+          "attributes": {
+            "placeholder": "App Name"
+          }
+        },
+        {
+          "name": "appBuild",
+          "label": "App Build(s)",
+          "type": "file",
+          "dbTag": "[String]",
+          "isRequired": true,
+          "attributes": {
+            "accept": ".js",
+            "multiple": true
+          }
+        },
+        {
+          "name": "htmlFile",
+          "label": "HTML File",
+          "type": "file",
+          "dbTag": "String",
+          "isRequired": true,
+          "attributes": {
+            "accept": ".html",
+            "multiple": false
+          }
+        },
+        {
+          "name": "hasBackend",
+          "label": "Has Backend?",
+          "type": "checkbox",
+          "dbTag": "Boolean",
+          "default": false,
+          "isRequired": true
+        },
+        {
+          "name": "serverFile",
+          "label": "Server File(s)",
+          "type": "file",
+          "dbTag": "[String]",
+          "isRequired": false,
+          "dependsOn": {
+            "name": "hasBackend",
+            "value": true
+          },
+          "attributes": {
+            "accept": ".js",
+            "multiple": true
+          }
+        },
+        {
+          "name": "dbFile",
+          "label": "DB File(s)",
+          "type": "file",
+          "dbTag": "[String]",
+          "isRequired": false,
+          "dependsOn": {
+            "name": "hasBackend",
+            "value": true
+          },
+          "attributes": {
+            "accept": ".js",
+            "multiple": true
+          }
+        }
+      ]
+    }
+  },
+  "documents": {
+    "pages": {
+      "label": "Pages",
+      "singularLabel": "Page",
+      "fields" : [
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "dbTag": "String",
+          "isRequired": true,
+          "attributes": {
+            "placeholder": "Page Title"
+          }
+        },
+        {
+          "name": "meta",
+          "label": "Meta",
+          "type": "text",
+          "dbTag": "String",
+          "isRequired": false,
+          "attributes": {
+            "placeholder": "Page Meta"
+          }
+        },
+        {
+          "name": "content",
+          "label": "Content",
+          "type": "text",
+          "dbTag": "String",
+          "isRequired": true,
+          "attributes": {
+            "placeholder": "Page Content"
+          }
+        }
+      ]
+    },
+    "projects": {
+      "label": "Projects",
+      "singularLabel": "Project",
+      "fields" : [
+        {
+          "name": "testRepeat",
+          "label": "Test Repeat",
+          "type": "textarea",
+          "dbTag": "[String]",
+          "isRequired": true,
+          "isRepeatable": true,
+          "attributes": {
+            "placeholder": "Test Repeat",
+            "rows": 5
+          }
+        },
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "text",
+          "dbTag": "String",
+          "isRequired": true,
+          "attributes": {
+            "placeholder": "Project Title"
+          }
+        },
+        {
+          "name": "meta",
+          "label": "Meta",
+          "type": "text",
+          "dbTag": "String",
+          "isRequired": false,
+          "attributes": {
+            "placeholder": "Project Meta"
+          }
+        },
+        {
+          "name": "description",
+          "label": "Description",
+          "type": "text",
+          "dbTag": "String",
+          "isRequired": true,
+          "attributes": {
+            "placeholder": "Project Content"
+          }
+        },
+        {
+          "name": "previewMedia",
+          "label": "Preview Media",
+          "type": "MediaSubdoc",
+          "dbTag": "mediaSubdoc",
+          "isRequired": true,
+          "isSubdoc": true
+        },
+        {
+          "name": "media",
+          "label": "Media",
+          "type": "MediaSubdoc",
+          "dbTag": "[MediaSubdoc]",
+          "isRequired": true,
+          "isSubdoc": true,
+          "isRepeatable": true
+        },
+        {
+          "name": "categories",
+          "label": "Categories",
+          "type": "text",
+          "dbTag": "String",
+          "isRequired": false,
+          "attributes": {
+            "placeholder": "Project Link"
+          }
+        },
+        {
+          "name": "isApp",
+          "label": "Is App?",
+          "type": "checkbox",
+          "dbTag": "Boolean",
+          "default": false,
+          "isRequired": true
+        },
+        {
+          "name": "appData",
+          "label": "App Data",
+          "type": "AppSubdoc",
+          "dbTag": "AppSubdoc",
+          "isRequired": true,
+          "isSubdoc": true,
+          "dependsOn": {
+            "name": "isApp",
+            "value": true
+          }
+        }
+      ]
+    }
+  }
+}
